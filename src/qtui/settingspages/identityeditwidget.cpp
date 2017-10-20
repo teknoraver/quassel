@@ -52,6 +52,7 @@ IdentityEditWidget::IdentityEditWidget(QWidget *parent)
     connect(ui.nicknameList, SIGNAL(itemChanged(QListWidgetItem *)), this, SIGNAL(widgetHasChanged()));
     connect(ui.awayNick, SIGNAL(textEdited(const QString &)), this, SIGNAL(widgetHasChanged()));
     connect(ui.awayReason, SIGNAL(textEdited(const QString &)), this, SIGNAL(widgetHasChanged()));
+    connect(ui.lockAwayEnabled, SIGNAL(clicked(bool)), this, SIGNAL(widgetHasChanged()));
     connect(ui.autoAwayEnabled, SIGNAL(clicked(bool)), this, SIGNAL(widgetHasChanged()));
     connect(ui.autoAwayTime, SIGNAL(valueChanged(int)), this, SIGNAL(widgetHasChanged()));
     connect(ui.autoAwayReason, SIGNAL(textEdited(const QString &)), this, SIGNAL(widgetHasChanged()));
@@ -168,6 +169,7 @@ void IdentityEditWidget::displayIdentity(CertIdentity *id, CertIdentity *saveId)
     if (ui.nicknameList->count()) ui.nicknameList->setCurrentRow(0);
     ui.awayNick->setText(id->awayNick());
     ui.awayReason->setText(id->awayReason());
+    ui.lockAwayEnabled->setChecked(id->lockAwayEnabled());
     ui.autoAwayEnabled->setChecked(id->autoAwayEnabled());
     ui.autoAwayTime->setValue(id->autoAwayTime());
     ui.autoAwayReason->setText(id->autoAwayReason());
@@ -198,6 +200,7 @@ void IdentityEditWidget::saveToIdentity(CertIdentity *id)
     id->setAwayNickEnabled(true);
     id->setAwayReason(ui.awayReason->text().remove(linebreaks));
     id->setAwayReasonEnabled(true);
+    id->setLockAwayEnabled(ui.lockAwayEnabled->isChecked());
     id->setAutoAwayEnabled(ui.autoAwayEnabled->isChecked());
     id->setAutoAwayTime(ui.autoAwayTime->value());
     id->setAutoAwayReason(ui.autoAwayReason->text().remove(linebreaks));

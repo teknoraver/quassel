@@ -62,6 +62,7 @@ Identity::Identity(const Identity &other, QObject *parent)
     _awayNickEnabled(other.awayNickEnabled()),
     _awayReason(other.awayReason()),
     _awayReasonEnabled(other.awayReasonEnabled()),
+    _lockAwayEnabled(other.lockAwayEnabled()),
     _autoAwayEnabled(other.autoAwayEnabled()),
     _autoAwayTime(other.autoAwayTime()),
     _autoAwayReason(other.autoAwayReason()),
@@ -182,6 +183,7 @@ void Identity::setToDefaults()
     setAwayNickEnabled(false);
     setAwayReason(tr("Gone fishing."));
     setAwayReasonEnabled(true);
+    setLockAwayEnabled(false);
     setAutoAwayEnabled(false);
     setAutoAwayTime(10);
     setAutoAwayReason(tr("Not here. No, really. not here!"));
@@ -253,6 +255,13 @@ void Identity::setAwayNickEnabled(bool enabled)
 void Identity::setAwayReasonEnabled(bool enabled)
 {
     _awayReasonEnabled = enabled;
+    SYNC(ARG(enabled))
+}
+
+
+void Identity::setLockAwayEnabled(bool enabled)
+{
+    _lockAwayEnabled = enabled;
     SYNC(ARG(enabled))
 }
 

@@ -43,6 +43,7 @@ class Identity : public SyncableObject
     Q_PROPERTY(bool awayNickEnabled READ awayNickEnabled WRITE setAwayNickEnabled)
     Q_PROPERTY(QString awayReason READ awayReason WRITE setAwayReason)
     Q_PROPERTY(bool awayReasonEnabled READ awayReasonEnabled WRITE setAwayReasonEnabled)
+    Q_PROPERTY(bool lockAwayEnabled READ lockAwayEnabled WRITE setLockAwayEnabled)
     Q_PROPERTY(bool autoAwayEnabled READ autoAwayEnabled WRITE setAutoAwayEnabled)
     Q_PROPERTY(int autoAwayTime READ autoAwayTime WRITE setAutoAwayTime)
     Q_PROPERTY(QString autoAwayReason READ autoAwayReason WRITE setAutoAwayReason)
@@ -75,6 +76,7 @@ public :
     inline bool awayNickEnabled() const { return _awayNickEnabled; }
     inline const QString &awayReason() const { return _awayReason; }
     inline bool awayReasonEnabled() const { return _awayReasonEnabled; }
+    inline bool lockAwayEnabled() const { return _lockAwayEnabled; }
     inline bool autoAwayEnabled() const { return _autoAwayEnabled; }
     inline int autoAwayTime() const { return _autoAwayTime; }
     inline const QString &autoAwayReason() const { return _autoAwayReason; }
@@ -96,6 +98,7 @@ public slots:
     void setAwayNickEnabled(bool enabled);
     void setAwayReason(const QString &awayReason);
     void setAwayReasonEnabled(bool enabled);
+    void setLockAwayEnabled(bool enabled);
     void setAutoAwayEnabled(bool enabled);
     void setAutoAwayTime(int time);
     void setAutoAwayReason(const QString &reason);
@@ -119,6 +122,7 @@ signals:
 //   void awayNickEnabledSet(bool);
 //   void awayReasonSet(const QString &awayReason);
 //   void awayReasonEnabledSet(bool);
+//   void lockAwayEnabledSet(bool);
 //   void autoAwayEnabledSet(bool);
 //   void autoAwayTimeSet(int);
 //   void autoAwayReasonSet(const QString &);
@@ -139,6 +143,7 @@ private:
     bool _awayNickEnabled;
     QString _awayReason;
     bool _awayReasonEnabled;
+    bool _lockAwayEnabled;
     bool _autoAwayEnabled;
     int _autoAwayTime;
     QString _autoAwayReason;

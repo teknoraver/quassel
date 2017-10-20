@@ -271,6 +271,13 @@
             </item>
            </layout>
           </item>
+          <item>
+           <widget class="QCheckBox" name="lockAwayEnabled">
+            <property name="text">
+             <string>Away on screen lock</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
        </item>

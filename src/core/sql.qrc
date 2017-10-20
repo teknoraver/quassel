@@ -283,5 +283,9 @@
     <file>./SQL/SQLite/version/22/upgrade_001_add_trigger_backlog_lastmsgid_update_direct_update.sql</file>
     <file>./SQL/SQLite/version/23/upgrade_000_alter_quasseluser_add_authenticator.sql</file>
     <file>./SQL/SQLite/version/24/upgrade_000_create_senderprefixes.sql</file>
+    <file>./SQL/SQLite/version/25/upgrade_000_create_idenity_new.sql</file>
+    <file>./SQL/SQLite/version/25/upgrade_001_copy_identity_tuples.sql</file>
+    <file>./SQL/SQLite/version/25/upgrade_002_drop_identity.sql</file>
+    <file>./SQL/SQLite/version/25/upgrade_003_rename_identity_new.sql</file>
 </qresource>
 </RCC>

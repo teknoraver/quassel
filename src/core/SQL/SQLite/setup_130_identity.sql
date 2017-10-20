@@ -7,6 +7,7 @@ CREATE TABLE identity (
        awaynickenabled INTEGER NOT NULL DEFAULT 0, -- BOOL
        awayreason TEXT,
        awayreasonenabled INTEGER NOT NULL DEFAULT 0, -- BOOL
+       lockawayenabled INTEGER NOT NULL DEFAULT 0, -- BOOL
        autoawayenabled INTEGER NOT NULL DEFAULT 0, -- BOOL
        autoawaytime INTEGER NOT NULL,
        autoawayreason TEXT,

@@ -393,6 +393,7 @@ IdentityId SqliteStorage::createIdentity(UserId user, CoreIdentity &identity)
         query.bindValue(":awaynickenabled", identity.awayNickEnabled() ? 1 : 0);
         query.bindValue(":awayreason", identity.awayReason());
         query.bindValue(":awayreasonenabled", identity.awayReasonEnabled() ? 1 : 0);
+        query.bindValue(":lockawayenabled", identity.lockAwayEnabled() ? 1 : 0);
         query.bindValue(":autoawayenabled", identity.awayReasonEnabled() ? 1 : 0);
         query.bindValue(":autoawaytime", identity.autoAwayTime());
         query.bindValue(":autoawayreason", identity.autoAwayReason());
@@ -472,6 +473,7 @@ bool SqliteStorage::updateIdentity(UserId user, const CoreIdentity &identity)
         query.bindValue(":awaynickenabled", identity.awayNickEnabled() ? 1 : 0);
         query.bindValue(":awayreason", identity.awayReason());
         query.bindValue(":awayreasonenabled", identity.awayReasonEnabled() ? 1 : 0);
+        query.bindValue(":lockawayenabled", identity.lockAwayEnabled() ? 1 : 0);
         query.bindValue(":autoawayenabled", identity.awayReasonEnabled() ? 1 : 0);
         query.bindValue(":autoawaytime", identity.autoAwayTime());
         query.bindValue(":autoawayreason", identity.autoAwayReason());
@@ -570,7 +572,6 @@ QList<CoreIdentity> SqliteStorage::identities(UserId user)
 
         lockForRead();
         safeExec(query);
-
         while (query.next()) {
             CoreIdentity identity(IdentityId(query.value(0).toInt()));
 
@@ -580,20 +581,21 @@ QList<CoreIdentity> SqliteStorage::identities(UserId user)
             identity.setAwayNickEnabled(!!query.value(4).toInt());
             identity.setAwayReason(query.value(5).toString());
             identity.setAwayReasonEnabled(!!query.value(6).toInt());
-            identity.setAutoAwayEnabled(!!query.value(7).toInt());
-            identity.setAutoAwayTime(query.value(8).toInt());
-            identity.setAutoAwayReason(query.value(9).toString());
-            identity.setAutoAwayReasonEnabled(!!query.value(10).toInt());
-            identity.setDetachAwayEnabled(!!query.value(11).toInt());
-            identity.setDetachAwayReason(query.value(12).toString());
-            identity.setDetachAwayReasonEnabled(!!query.value(13).toInt());
-            identity.setIdent(query.value(14).toString());
-            identity.setKickReason(query.value(15).toString());
-            identity.setPartReason(query.value(16).toString());
-            identity.setQuitReason(query.value(17).toString());
+            identity.setLockAwayEnabled(!!query.value(7).toInt());
+            identity.setAutoAwayEnabled(!!query.value(8).toInt());
+            identity.setAutoAwayTime(query.value(9).toInt());
+            identity.setAutoAwayReason(query.value(10).toString());
+            identity.setAutoAwayReasonEnabled(!!query.value(11).toInt());
+            identity.setDetachAwayEnabled(!!query.value(12).toInt());
+            identity.setDetachAwayReason(query.value(13).toString());
+            identity.setDetachAwayReasonEnabled(!!query.value(14).toInt());
+            identity.setIdent(query.value(15).toString());
+            identity.setKickReason(query.value(16).toString());
+            identity.setPartReason(query.value(17).toString());
+            identity.setQuitReason(query.value(18).toString());
 #ifdef HAVE_SSL
-            identity.setSslCert(query.value(18).toByteArray());
-            identity.setSslKey(query.value(19).toByteArray());
+            identity.setSslCert(query.value(19).toByteArray());
+            identity.setSslKey(query.value(20).toByteArray());
 #endif
 
             nickQuery.bindValue(":identityid", identity.id().toInt());
@@ -1870,19 +1872,20 @@ bool SqliteMigrationReader::readMo(IdentityMO &identity)
     identity.awayNickEnabled = value(5).toInt() == 1 ? true : false;
     identity.awayReason = value(6).toString();
     identity.awayReasonEnabled = value(7).toInt() == 1 ? true : false;
-    identity.autoAwayEnabled = value(8).toInt() == 1 ? true : false;
-    identity.autoAwayTime = value(9).toInt();
-    identity.autoAwayReason = value(10).toString();
-    identity.autoAwayReasonEnabled = value(11).toInt() == 1 ? true : false;
-    identity.detachAwayEnabled = value(12).toInt() == 1 ? true : false;
-    identity.detachAwayReason = value(13).toString();
-    identity.detchAwayReasonEnabled = value(14).toInt() == 1 ? true : false;
-    identity.ident = value(15).toString();
-    identity.kickReason = value(16).toString();
-    identity.partReason = value(17).toString();
-    identity.quitReason = value(18).toString();
-    identity.sslCert = value(19).toByteArray();
-    identity.sslKey = value(20).toByteArray();
+    identity.lockAwayEnabled = value(8).toInt() == 1 ? true : false;
+    identity.autoAwayEnabled = value(9).toInt() == 1 ? true : false;
+    identity.autoAwayTime = value(10).toInt();
+    identity.autoAwayReason = value(11).toString();
+    identity.autoAwayReasonEnabled = value(12).toInt() == 1 ? true : false;
+    identity.detachAwayEnabled = value(13).toInt() == 1 ? true : false;
+    identity.detachAwayReason = value(14).toString();
+    identity.detchAwayReasonEnabled = value(15).toInt() == 1 ? true : false;
+    identity.ident = value(16).toString();
+    identity.kickReason = value(17).toString();
+    identity.partReason = value(18).toString();
+    identity.quitReason = value(19).toString();
+    identity.sslCert = value(20).toByteArray();
+    identity.sslKey = value(21).toByteArray();
     return true;
 }
 

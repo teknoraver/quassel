@@ -212,7 +212,7 @@ if (USE_QT5)
 
         if (NOT WIN32)
             find_package(Qt5DBus QUIET)
-            set_package_properties(Qt5DBus PROPERTIES TYPE RECOMMENDED
+            set_package_properties(Qt5DBus PROPERTIES TYPE REQUIRED
                 URL "https://www.qt.io/"
                 DESCRIPTION "D-Bus support for Qt5"
                 PURPOSE     "Needed for supporting D-Bus-based notifications and tray icon, used by most modern desktop environments"

@@ -167,6 +167,7 @@ public:
         bool awayNickEnabled;
         QString awayReason;
         bool awayReasonEnabled;
+        bool lockAwayEnabled;
         bool autoAwayEnabled;
         int autoAwayTime;
         QString autoAwayReason;
