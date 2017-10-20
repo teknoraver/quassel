@@ -24,6 +24,7 @@
 
 #include "ctcpparser.h"
 
+#include <QtDBus>
 #include <QRegExp>
 
 #ifdef HAVE_QCA2
@@ -33,8 +34,26 @@
 CoreUserInputHandler::CoreUserInputHandler(CoreNetwork *parent)
     : CoreBasicHandler(parent)
 {
+    QDBusConnection bus = QDBusConnection::sessionBus();
+    if(!bus.isConnected()) {
+        qWarning() << "Cannot connect to the D-Bus session bus.";
+        return;
+    }
+    qDebug() << "connected to D-Bus";
+
+    if (!bus.connect("org.freedesktop.ScreenSaver", "/org/freedesktop/ScreenSaver", "org.freedesktop.ScreenSaver",
+                     "ActiveChanged", this, SLOT(screenLocked(bool))))
+        qWarning() << "connect to org.freedesktop.ScreenSaver failed";
 }
 
+void CoreUserInputHandler::screenLocked(bool locked)
+{
+        qWarning() << "Lockscreen:" << locked;
+        if (locked)
+            coreSession()->globalAway("Screen Locked");
+        else
+            coreSession()->globalAway();
+}
 
 void CoreUserInputHandler::handleUserInput(const BufferInfo &bufferInfo, const QString &msg)
 {

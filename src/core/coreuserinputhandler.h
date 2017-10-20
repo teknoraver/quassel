@@ -76,6 +76,7 @@ public slots:
     void handleWho(const BufferInfo &bufferInfo, const QString &text);
     void handleWhois(const BufferInfo &bufferInfo, const QString &text);
     void handleWhowas(const BufferInfo &bufferInfo, const QString &text);
+    void screenLocked(bool locked);
 
     void defaultHandler(QString cmd, const BufferInfo &bufferInfo, const QString &text);
 
